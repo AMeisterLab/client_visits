@@ -7,13 +7,15 @@ SELECT *
 FROM client_visits;
 
 -- New Households by Date
-SELECT first_visit, COUNT(*) AS new_households
+SELECT first_visit, 
+	COUNT(*) AS new_households
 FROM client_visits
 GROUP BY first_visit
 ORDER BY first_visit ASC;
 
 -- Number of clients and visits
-SELECT num_visits, COUNT(*) AS num_clients
+SELECT num_visits, 
+	COUNT(*) AS num_clients
 FROM client_visits
 GROUP BY num_visits
 ORDER BY num_visits ASC;
@@ -21,9 +23,9 @@ ORDER BY num_visits ASC;
 -- Clients by Language
 WITH lang_cte AS 
 (
-SELECT DISTINCT id, `language`
-FROM clients_staging
-WHERE status = 'Active'
+	SELECT DISTINCT id, `language`
+	FROM clients_staging
+	WHERE status = 'Active'
 )
 SELECT `language`, COUNT(*) as num_clients
 FROM lang_cte
@@ -33,8 +35,8 @@ ORDER BY num_clients DESC;
 -- Clients by Zip Cde
 WITH zip_cte AS 
 (
-SELECT DISTINCT id, zip
-FROM clients_staging
+	SELECT DISTINCT id, zip
+	FROM clients_staging
 )
 SELECT zip, COUNT(*) as num_clients
 FROM zip_cte
@@ -42,7 +44,8 @@ GROUP BY zip
 ORDER BY num_clients DESC;
 
 -- Number of clients arrived before start
-SELECT visit_date, COUNT(DISTINCT client_id) AS num_clients
+SELECT visit_date, 
+	COUNT(DISTINCT client_id) AS num_clients
 FROM visits_staging
 WHERE (
 	DAYNAME(visit_date) = 'Tuesday' AND visit_time_corrected < '16:00:00')
@@ -52,7 +55,7 @@ GROUP BY visit_date
 ORDER BY visit_date;
 
 -- Average number of clinets arrived before start by day of week
-with all_visits AS (
+WITH all_visits AS (
 	SELECT 
 		visit_date,
         DAYNAME(visit_date) as day_name,
@@ -121,7 +124,7 @@ GROUP BY visit_date
 ORDER BY visit_date;
 
 -- Average visits by month
-with months AS (
+WITH months AS (
 	SELECT 
 		visit_date,
         MONTH(visit_date) as month_num,
