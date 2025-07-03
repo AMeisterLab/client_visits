@@ -1,3 +1,3 @@
 # client_visits
 
-Data cleaning and exploratory analysis SQL queries using data from Pantry Soft "Visits in Range" dynamic report.
+Collection of data cleaning and exploratory analysis SQL queries. These queries are setup to process data from the "Visits in Range" report from Pantry Soft.
